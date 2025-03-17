@@ -1,5 +1,5 @@
-import express, { json } from "express"   
-
+import express from "express"   
+import passport from './config/passport.mjs';
 const app = express();
 
 app.use(bodyParser.json());
