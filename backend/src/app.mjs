@@ -1,10 +1,8 @@
-import express from "express"   
+import express, { json } from "express"   
 
 const app = express();
 
-app.get('/',(req,res)=>{
-    res.send("hey");
-})
+app.use(bodyParser.json());
 
 
 app.listen(3000,()=>{
