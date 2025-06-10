@@ -26,6 +26,15 @@ const publishPost = asyncHandler(async (req, res) => {
     res.status(200).json(post);
 });
 
+const unPublishPost = asyncHandler(async (req, res) => {
+    const postId = req.params.id;
+    if (!postId) throw new HttpError("post id is required", 400);
+    const post = await postModel.unPublishPost(postId);
+    if (!post) throw new HttpError("Post not Found", 404);
+    res.status(200).json(post);
+}
+);
+
 const updatePostContent = asyncHandler(async (req, res) => {
     const postId = req.params.id;
     if (!postId) throw new HttpError("post id is required", 400);
@@ -42,4 +51,12 @@ const updatePostTitle = asyncHandler(async (req, res) => {
     res.status(200).json(post);
 });
 
-export default { getPublishedPosts, createPost, publishPost, updatePostContent, updatePostTitle };
+const deletePost = asyncHandler(async (req, res) => {
+    const postId = req.params.id;
+    if (!postId) throw new HttpError("post id is required", 400);
+    const post = await postModel.deletePost(postId);
+    if (!post) throw new HttpError("Post not Found", 404);
+    res.status(200).json({ message: "Post deleted successfully" });
+});
+
+export default { getPublishedPosts, createPost, publishPost, updatePostContent, updatePostTitle, unPublishPost, deletePost }; 
