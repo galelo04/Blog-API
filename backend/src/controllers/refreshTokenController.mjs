@@ -2,10 +2,11 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import HttpError from '../errors/HttpError.mjs';
 import userModel from "../models/userModel.mjs";
+import asyncHandler from "express-async-handler";
 dotenv.config();
 
 
-const refreshToken = async (req, res) => {
+const refreshToken = asyncHandler(async (req, res) => {
     const cookies = req.cookies
     if (!cookies?.jwt) {
         throw new HttpError('No refresh token provided', 401); // Unauthorized
@@ -29,6 +30,6 @@ const refreshToken = async (req, res) => {
         }
     );
 
-};
+});
 
 export default { refreshToken };
