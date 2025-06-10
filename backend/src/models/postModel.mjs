@@ -1,24 +1,42 @@
 import prisma from "../config/db.mjs";
 
-const createPost = async (title,content,authorId,published) => {
-    return await prisma.post.create({data:{
-        title,
-        content,
-        published,
-        authorId
-    }})    
+const createPost = async (title, content, authorId, published) => {
+    return await prisma.post.create({
+        data: {
+            title,
+            content,
+            published,
+            authorId
+        }
+    })
 }
 
 const publishPost = async (postId) => {
-    return await prisma.post.update({where:{id:postId}},{data:{published:true}});
+    return await prisma.post.update({ where: { id: postId } }, { data: { published: true } });
 }
 
 const unPublishPost = async (postId) => {
-    return await prisma.post.update({where:{id:postId}},{data:{published:false}});
-} 
-
-const deletePost = async (postId) => {
-    return await prisma.post.delete({where:{id:postId}});
+    return await prisma.post.update({ where: { id: postId } }, { data: { published: false } });
 }
 
-export default {createPost,publishPost,unPublishPost,deletePost}
+const getPostById = async (postId) => {
+    return await prisma.post.findUnique({ where: { id: postId } });
+}
+
+const getPublishedPosts = async () => {
+    return await prisma.post.findMany({ where: { published: true } })
+}
+
+
+const updatePostContent = async (postId, content) => {
+    return await prisma.post.update({ where: { id: postId } }, { data: { content } })
+}
+
+const updatePostTitle = async (postId, title) => {
+    return await prisma.post.update({ where: { id: postId } }, { data: { title } })
+}
+const deletePost = async (postId) => {
+    return await prisma.post.delete({ where: { id: postId } });
+}
+
+export default { createPost, publishPost, unPublishPost, deletePost, getPostById, getPublishedPosts, updatePostContent, updatePostTitle }
