@@ -1,15 +1,27 @@
+
 import prisma from "../config/db.mjs";
 
-const createComment = async (content , authorId , postId) => {
-    return await prisma.comment.create({data:{
-        content,
-        authorId,
-        postId
-    }})
+const createComment = async (content, basicUserId, postId) => {
+    return await prisma.comment.create({
+        data: {
+            content,
+            author: {
+                connect: { id: basicUserId },
+            },
+            post: {
+                connect: { id: postId }
+            }
+        }
+
+    })
+}
+
+const getCommentsByPostId = async (postId) => {
+    return await prisma.comment.findMany({ where: { postId }, include: { author } })
 }
 
 const deleteComment = async (commentId) => {
-    return await prisma.comment.delete({where:{id:commentId}})
+    return await prisma.comment.delete({ where: { id: commentId } })
 }
 
-export default {createComment,deleteComment}
+export default { createComment, deleteComment, getCommentsByPostId }
