@@ -1,12 +1,21 @@
-import express from "express"   
+import cookieParser from "cookie-parser";
+import express from "express"
 import apiRouter from "./routes/apiRouter.mjs";
+import authRouter from "./routes/authRouter.mjs";
+import { logger } from "./middlewares/logEvents.mjs";
+import refreshTokenRouter from "./routes/refreshTokenRouter.mjs";
+import errorHandler from "./middlewares/errorHandler.mjs";
+import verifyJWT from "./middlewares/verifyJWT.mjs";
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(logger);
 
+app.use('/auth', authRouter);
+app.use('/refresh', refreshTokenRouter);
+app.use(verifyJWT)
+app.use('/api', apiRouter);
+app.use(errorHandler);
 
-
-app.use('/api',apiRouter);
-
-app.listen(3000,()=>{
-    console.log("hello world");
-})
+app.listen(3000, () => console.log('app listening on port 3000!'));
