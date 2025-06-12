@@ -6,10 +6,18 @@ const getPublishedPosts = asyncHandler(async (req, res) => {
     if (!publishedposts ) {
         throw new HttpError("No published posts found", 404);
     }
-    console.log("Published posts:", publishedposts);
     res.status(200).json(publishedposts);
 })
-
+const getAuthorPosts = asyncHandler(async (req, res) => {
+    const authorId = req.user.id;
+    if (!authorId) throw new HttpError("Author ID is required", 400);
+    const posts = await postModel.getAuthorPosts(authorId);
+    if (!posts) {
+        throw new HttpError("No posts found for this author", 404);
+    }
+    res.status(200).json(posts);
+}
+);
 const createPost = asyncHandler(async (req, res) => {
     const { title, content } = req.body;
     const authorId = req.user.id;
@@ -58,5 +66,11 @@ const deletePost = asyncHandler(async (req, res) => {
     if (!post) throw new HttpError("Post not Found", 404);
     res.status(200).json({ message: "Post deleted successfully" });
 });
-
-export default { getPublishedPosts, createPost, publishPost, updatePostContent, updatePostTitle, unPublishPost, deletePost }; 
+const getPostById = asyncHandler(async (req, res) => {
+    const postId = req.params.id;
+    if (!postId) throw new HttpError("post id is required", 400);
+    const post = await postModel.getPostById(postId);
+    if (!post) throw new HttpError("Post not Found", 404);
+    res.status(200).json(post);
+});
+export default {getPostById, getAuthorPosts,getPublishedPosts, createPost, publishPost, updatePostContent, updatePostTitle, unPublishPost, deletePost }; 
