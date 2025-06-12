@@ -34,7 +34,8 @@ const getCommentsPost = asyncHandler(async (req, res) => {
     const postId = req.params.postId;
     if (!postId) throw new HttpError("Post id is required", 404);
     const comments = await commentModel.getCommentsByPostId(postId);
-    if (!comments || comments.length === 0) throw new HttpError("No comments Found", 404);
+    console.log("comments", comments);
+    if (!comments) throw new HttpError("No comments Found", 404);
     res.status(200).json(comments);
 })
 export default { createComment, deleteComment, getCommentsPost };
