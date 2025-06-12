@@ -1,0 +1,403 @@
+/* Header.css - Modern Header Styles */
+
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    animation: slideDown 0.8s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+}
+
+/* Brand Section */
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.header-brand:hover {
+    transform: scale(1.05);
+}
+
+.brand-icon {
+    font-size: 2rem;
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+.header-brand span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+/* Navigation Section */
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+.header-nav a {
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+.header-nav a:hover {
+    color: #333;
+    transform: translateY(-2px);
+}
+.header-nav a.active {
+    color: #007bff;
+    font-weight: bold;
+    border-bottom: 2px solid #007bff;
+}
+/* Button Styles */
+.header-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.header-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+.header-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+.header-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header-nav {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .header-nav a {
+        font-size: 1.1rem;
+    }
+    .header-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+/* Dark Mode Styles */
+@media (prefers-color-scheme: dark) {
+    .app-header {
+        background: rgba(30, 30, 30, 0.95);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    }
+    .header-nav a {
+        color: #bbb;
+    }
+    .header-nav a:hover {
+        color: #fff;
+    }
+    .header-button {
+        background-color: #0056b3;
+    }
+}
+.header-button:hover {
+    background-color: #004494;
+}
+.header-button:focus {
+    box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.5);
+}
+.header-button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+    transform: none;
+}
+.header-brand span {
+    color: #fff;
+}
+.header-brand:hover span {
+    color: #007bff;
+}
+.header-nav a {
+    color: #fff;
+}
+.header-nav a:hover {
+    color: #007bff;
+}
+.header-nav a.active {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+}
+.header-nav a.active:hover {
+    color: #0056b3;
+}
+.header-nav a.active:focus {
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+.header-nav a.active:disabled {
+    color: #666;
+    cursor: not-allowed;
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header-nav {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .header-nav a {
+        font-size: 1.1rem;
+    }
+    .header-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+/* Dark Mode Styles */
+@media (prefers-color-scheme: dark) {
+    .app-header {
+        background: rgba(30, 30, 30, 0.95);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    }
+    .header-nav a {
+        color: #bbb;
+    }
+    .header-nav a:hover {
+        color: #fff;
+    }
+    .header-button {
+        background-color: #0056b3;
+    }
+}
+.header-button:hover {
+    background-color: #004494;
+}
+.header-button:focus {
+    box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.5);
+}
+.header-button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+    transform: none;
+}
+.header-brand span {
+    color: #fff;
+}
+.header-brand:hover span {
+    color: #007bff;
+}
+.header-nav a {
+    color: #fff;
+}
+.header-nav a:hover {
+    color: #007bff;
+}
+.header-nav a.active {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+}
+.header-nav a.active:hover {
+    color: #0056b3;
+}
+.header-nav a.active:focus {
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+.header-nav a.active:disabled {
+    color: #666;
+    cursor: not-allowed;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header-nav {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .header-nav a {
+        font-size: 1.1rem;
+    }
+    .header-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+/* Dark Mode Styles */
+@media (prefers-color-scheme: dark) {
+    .app-header {
+        background: rgba(30, 30, 30, 0.95);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    }
+    .header-nav a {
+        color: #bbb;
+    }
+    .header-nav a:hover {
+        color: #fff;
+    }
+    .header-button {
+        background-color: #0056b3;
+    }
+}
+.header-button:hover {
+    background-color: #004494;
+}
+.header-button:focus {
+    box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.5);
+}
+.header-button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+    transform: none;
+}
+.header-brand span {
+    color: #fff;
+}
+.header-brand:hover span {
+    color: #007bff;
+}
+.header-nav a {
+    color: #fff;
+}
+.header-nav a:hover {
+    color: #007bff;
+}
+.header-nav a.active {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+}
+.header-nav a.active:hover {
+    color: #0056b3;
+}
+.header-nav a.active:focus {
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+.header-nav a.active:disabled {
+    color: #666;
+    cursor: not-allowed;
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header-nav {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .header-nav a {
+        font-size: 1.1rem;
+    }
+    .header-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+/* Dark Mode Styles */
+@media (prefers-color-scheme: dark) {
+    .app-header {
+        background: rgba(30, 30, 30, 0.95);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    }
+    .header-nav a {
+        color: #bbb;
+    }
+    .header-nav a:hover {
+        color: #fff;
+    }
+    .header-button {
+        background-color: #0056b3;
+    }
+}
+.header-button:hover {
+    background-color: #004494;
+}
+.header-button:focus {
+    box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.5);
+}
+.header-button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+    transform: none;
+}
+.header-brand span {
+    color: #fff;
+}
+.header-brand:hover span {
+    color: #007bff;
+}
+.header-nav a {
+    color: #fff;
+}
+.header-nav a:hover {
+    color: #007bff;
+}
+.header-nav a.active {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+}
+.header-nav a.active:hover {
+    color: #0056b3;
+}
+.header-nav a.active:focus {
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+.header-nav a.active:disabled {
+    color: #666;
+    cursor: not-allowed;
+}
+/* Responsive Styles */
