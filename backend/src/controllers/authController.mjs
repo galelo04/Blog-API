@@ -19,8 +19,8 @@ const loginUser = asyncHandler(async (req, res) => {
     const accessToken = jwt.sign({ "id": user.id, "type": user.type }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
     const refreshToken = jwt.sign({ "id": user.id, "type": user.type }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
     await userModel.addRefreshToken(user.id, refreshToken);
-    res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 });
-    res.status(200).json({ 'success': 'User logged in successfully', accessToken });
+    res.cookie('jwt', refreshToken, { httpOnly: true, secure:true,sameSite:"None",maxAge: 7 * 24 * 60 * 60 * 1000 });
+    res.status(200).json({ 'success': 'User logged in successfully', accessToken ,user: { id: user.id, name: user.name, email: user.email, type: user.type } });
 })
 
 const logoutUser = asyncHandler(async (req, res) => {
@@ -32,11 +32,11 @@ const logoutUser = asyncHandler(async (req, res) => {
     const refreshToken = cookies.jwt;
     const user = await userModel.getUserByRefreshToken(refreshToken);
     if (!user) {
-        res.clearCookie('jwt', { httpOnly: true, secure: true });
+        res.clearCookie('jwt', { httpOnly: true, secure: true ,sameSite:"None"});
         return res.sendStatus(204); // No content
     }
     await userModel.deleteRefreshToken(user.id);
-    res.clearCookie('jwt', { httpOnly: true, secure: true });
+    res.clearCookie('jwt', { httpOnly: true, secure: true, sameSite: "None" });
     res.sendStatus(204); // No content
 });
 
