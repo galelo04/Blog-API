@@ -1,10 +1,9 @@
 import userModel from "../models/userModel.mjs";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 import asyncHandler from "express-async-handler";
 const loginUser = asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password ,type} = req.body;
     if (!email || !password) {
         throw new Error('Please fill all the fields', 400);
     }
@@ -16,6 +15,9 @@ const loginUser = asyncHandler(async (req, res) => {
     if (!match) {
         throw new Error('Invalid credentials', 401);
     }
+      if (type === 'Author' && user.type !== 'Author') {
+    return res.status(403).json({ message: 'You are not authorized to access the author portal' });
+  }
     const accessToken = jwt.sign({ "id": user.id, "type": user.type }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
     const refreshToken = jwt.sign({ "id": user.id, "type": user.type }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
     await userModel.addRefreshToken(user.id, refreshToken);
