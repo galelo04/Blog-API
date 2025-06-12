@@ -17,7 +17,7 @@ const createComment = async (content, basicUserId, postId) => {
 }
 
 const getCommentsByPostId = async (postId) => {
-    return await prisma.comment.findMany({ where: { postId }, include: { author } })
+    return await prisma.comment.findMany({ where: { postId }, include: { author:true } })
 }
 
 const deleteComment = async (commentId) => {
