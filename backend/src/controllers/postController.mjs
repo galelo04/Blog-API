@@ -45,16 +45,18 @@ const unPublishPost = asyncHandler(async (req, res) => {
 
 const updatePostContent = asyncHandler(async (req, res) => {
     const postId = req.params.id;
+    const {content} = req.body;
     if (!postId) throw new HttpError("post id is required", 400);
-    const post = await postModel.updatePostContent(postId);
+    const post = await postModel.updatePostContent(postId,content);
     if (!post) throw new HttpError("Post not Found", 404);
     res.status(200).json(post);
 });
 
 const updatePostTitle = asyncHandler(async (req, res) => {
     const postId = req.params.id;
+    const {title} = req.body;
     if (!postId) throw new HttpError("post id is required", 400);
-    const post = await postModel.updatePostTitle(postId);
+    const post = await postModel.updatePostTitle(postId,title);
     if (!post) throw new HttpError("Post not Found", 404);
     res.status(200).json(post);
 });
