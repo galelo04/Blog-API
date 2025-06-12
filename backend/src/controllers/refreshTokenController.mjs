@@ -11,10 +11,8 @@ const refreshToken = asyncHandler(async (req, res) => {
     if (!cookies?.jwt) {
         throw new HttpError('No refresh token provided', 401); // Unauthorized
     }
-    console.log('Cookies:', cookies.jwt);
     const refreshToken = cookies.jwt;
     const user = await userModel.getUserByRefreshToken(refreshToken);
-    console.log('User:', user);
     if (!user) {
         throw new HttpError('forbidden', 403); // Forbidden
     }
@@ -26,7 +24,7 @@ const refreshToken = asyncHandler(async (req, res) => {
                 throw new HttpError('Forbidden', 403); // Forbidden
             }
             const accessToken = jwt.sign({ "id": user.id, "type": user.type }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
-            res.status(200).json({ accessToken });
+               res.status(200).json({ 'success': 'User logged in successfully', accessToken ,user: { id: user.id, name: user.name, email: user.email, type: user.type } });
         }
     );
 
