@@ -3,7 +3,7 @@ import asyncHandler from "express-async-handler"
 import HttpError from "../errors/HttpError.mjs"
 const getPublishedPosts = asyncHandler(async (req, res) => {
     const publishedposts = await postModel.getPublishedPosts();
-    if (!publishedposts || publishedposts.length === 0) {
+    if (!publishedposts ) {
         throw new HttpError("No published posts found", 404);
     }
     console.log("Published posts:", publishedposts);
